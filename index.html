@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Subbu 💖</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.2);
+    padding: 40px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    z-index: 2;
+  }
+
+  h1 {
+    color: #fff;
+    font-size: 2em;
+  }
+
+  .emoji {
+    font-size: 60px;
+    margin: 15px 0;
+  }
+
+  .buttons {
+    margin-top: 20px;
+    position: relative;
+    height: 120px;
+  }
+
+  button {
+    padding: 12px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  #yesBtn {
+    background: white;
+    color: #ff4d6d;
+  }
+
+  #noBtn {
+    background: #ff4d6d;
+    color: white;
+    position: absolute;
+  }
+
+  .love {
+    font-size: 2.5em;
+    color: white;
+    display: none;
+    z-index: 2;
+  }
+
+  /* Floating hearts */
+  .heart {
+    position: absolute;
+    color: rgba(255,255,255,0.9);
+    animation: float 6s linear infinite;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(100vh);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-10vh);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hidden YouTube music -->
+<iframe id="ytMusic" width="0" height="0"
+src="https://www.youtube.com/embed/4bZ-MAOLbGc?enablejsapi=1&autoplay=0"
+frameborder="0" allow="autoplay; encrypted-media"></iframe>
+
+<div class="card" id="card">
+  <h1>Subbu,<br>Will you be my Valentine? 💕</h1>
+  <div class="emoji">🥺👉👈🧸</div>
+
+  <div class="buttons">
+    <button id="yesBtn" onclick="yes()">YES 💖</button>
+    <button id="noBtn">NO 🙈</button>
+  </div>
+</div>
+
+<div class="love" id="loveText">I Love You Forever ❤️♾️</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+let heartsStarted = false;
+
+// NO button runs away
+function moveNo() {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 100);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("click", yes);
+
+// YES action
+function yes() {
+  // Start music
+  const yt = document.getElementById("ytMusic").contentWindow;
+  yt.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+
+  document.getElementById("card").style.display = "none";
+  document.getElementById("loveText").style.display = "block";
+
+  if (!heartsStarted) {
+    startHearts();
+    heartsStarted = true;
+  }
+}
+
+// Hearts start ONLY after tap
+function startHearts() {
+  for (let i = 0; i < 35; i++) {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 30) + "px";
+    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+    document.body.appendChild(heart);
+  }
+}
+</script>
+
+</body>
+</html>
